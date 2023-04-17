@@ -78,8 +78,8 @@ if file is not None:
                     explode = (0, 0.1)
                     fig1, ax1 = plt.subplots()
                     labels=df['Unusual'].replace({0:"Usual",1:"Unusual"}).unique()
-
-                    ax1.pie(sizes, labels=labels[::-1],explode=explode, autopct='%1.1f%%', startangle=90)
+                    
+                    ax1.pie(sizes, labels=labels,explode=explode, autopct='%1.1f%%', startangle=90)
                     ax1.axis('equal')
 
                     st.pyplot(fig1)
