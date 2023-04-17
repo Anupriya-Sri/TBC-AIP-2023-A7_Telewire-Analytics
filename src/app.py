@@ -198,16 +198,32 @@ if file is not None:
             st.markdown("### Box plot")
             st.markdown("* Identify outliers or anomalous data points")
             st.markdown("* To understand the spread/range of the data")
-            # boxplot
-            fig, ax = plt.subplots(figsize=(12,8))
-            sns.boxplot(data=df.drop('Unusual',axis=1))
-            plt.ylim(0, 80)
-            # Set the axis labels and title
-            ax.set_xlabel('Parameters')
-            ax.set_ylabel('Distribution')
-            ax.set_title('Box Plot')
-            # Display the box plot in Streamlit
-            st.pyplot(fig)
+            options = df['CellName'].unique().tolist() + ['All']
+            selected_option = st.selectbox("Tower Selection", options,index=options.index("All"))
+            if selected_option == 'All':
+                 # boxplot
+                fig, ax = plt.subplots(figsize=(12,8))
+                sns.boxplot(data=df.drop('Unusual',axis=1))
+                plt.ylim(0, 80)
+                # Set the axis labels and title
+                ax.set_xlabel('Parameters')
+                ax.set_ylabel('Distribution')
+                ax.set_title('Box Plot')
+                # Display the box plot in Streamlit
+                st.pyplot(fig)
+            else:     
+                temp_data = df[df['CellName'] == selected_option]
+            
+                # boxplot
+                fig, ax = plt.subplots(figsize=(12,8))
+                sns.boxplot(data=temp_data.drop('Unusual',axis=1))
+                plt.ylim(0, 80)
+                # Set the axis labels and title
+                ax.set_xlabel('Parameters')
+                ax.set_ylabel('Distribution')
+                ax.set_title('Box Plot')
+                # Display the box plot in Streamlit
+                st.pyplot(fig)
 
     if selected_option == 'Uploaded Data':
         with st.spinner('Processing...'):
